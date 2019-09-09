@@ -1,3 +1,11 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+searchRecipe:
+  path:       /api/v1/search-recipe/{text}
+  controller: App\Controller\RecipeController::searchRecipe
+  methods:    GET
+  defaults:  { text: null }
+
+getListByPage:
+  path:       /api/v1/list/{page}
+  controller: App\Controller\RecipeController::getListByPage
+  methods:    GET
+  defaults:  { page: 1 }

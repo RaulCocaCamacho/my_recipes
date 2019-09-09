@@ -10,9 +10,9 @@ use Symfony\Component\HttpClient\HttpClient;
  */
 class RecipePuppy {
     private $url_base;
-    const ingredients = 'i';
-    const query = 'q';
-    const page = 'p';
+    const INGREDIENTS = 'i';
+    const QUERY = 'q';
+    const PAGE = 'p';
 
     //    const format = 'format';
 
@@ -29,7 +29,8 @@ class RecipePuppy {
      */
     protected function curl($params) {
         $client = HttpClient::create();
-        $response = $client->request('GET', $this->url_base . "?" . self::composeParams($params));
+        $url = $this->url_base . "?" . self::composeParams($params);
+        $response = $client->request('GET', $url);
         try {
             $content = json_decode($response->getContent());
             $result = $content->results;
@@ -49,7 +50,7 @@ class RecipePuppy {
      * @throws HsfException
      */
     public function searchRecipe($text) {
-        $params[self::query] = $text;
+        $params[self::QUERY] = $text;
         $resp = $this->curl($params);
 
         return $resp;
@@ -61,7 +62,7 @@ class RecipePuppy {
      * @throws HsfException
      */
     public function getListByPage($page = 1) {
-        $params[self::page] = $page;
+        $params[self::PAGE] = $page;
         $resp = $this->curl($params);
 
         return $resp;
